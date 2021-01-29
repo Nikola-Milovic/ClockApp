@@ -2,5 +2,8 @@ rootProject.name = "ClockApp"
 rootProject.buildFileName = "build.gradle.kts"
 
 include(
-        ":app"
+        ":app",
+        ":data",
+        ":feature_add_alarm",
+        ":feature_alarms"
 )

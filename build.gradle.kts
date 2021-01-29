@@ -1,4 +1,4 @@
-import io.gitlab.arturbosch.detekt.detekt
+
 // all projects = root project + sub projects in li
 allprojects {
 
@@ -6,34 +6,14 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        maven("https://oss.sonatype.org/content/repositories/snapshots")
-        maven("https://maven.fabric.io/public")
         maven("https://plugins.gradle.org/m2/")
         maven ( "https://jitpack.io" )
     }
 
-    plugins.apply(GradlePluginId.DETEKT)
-    plugins.apply(GradlePluginId.KTLINT)
     plugins.apply(GradlePluginId.GRADLE_VERSION_PLUGIN)
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
-    }
-}
-
-subprojects {
-    tasks.withType<Test> {
-        maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
-    }
-
-    apply(plugin = GradlePluginId.DETEKT)
-
-    detekt {
-        config = files("${project.rootDir}/detekt.yml")
-        parallel = true
-    }
-    afterEvaluate {
-        configureAndroid()
     }
 }
 

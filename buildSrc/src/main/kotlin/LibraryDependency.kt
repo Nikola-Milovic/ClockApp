@@ -35,7 +35,6 @@ object LibraryDependency {
     const val KOTLIN = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${CoreVersion.KOTLIN}"
 
     const val TIMBER = "com.jakewharton.timber:timber:${LibraryVersion.TIMBER}"
-    const val PLAY_CORE = "com.google.android.play:core:${LibraryVersion.PLAY_CORE}"
     const val COROUTINES_ANDROID =
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:${CoreVersion.COROUTINES_ANDROID}"
     const val COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${CoreVersion.COROUTINES_ANDROID}"
@@ -87,13 +86,4 @@ object LibraryDependency {
     const val ROOM = "androidx.room:room-runtime:${LibraryVersion.ROOM}"
     const val ROOM_COMPILER = "androidx.room:room-compiler:${LibraryVersion.ROOM}"
     const val ROOM_KTX = "androidx.room:room-ktx:${LibraryVersion.ROOM}"
-
-    const val FIREBASE_MESSAGING = "com.google.firebase:firebase-messaging-ktx"
-    const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
-
-    const val VOLLEY = "com.android.volley:volley:${LibraryVersion.VOLLEY}"
-}
-
-object PlatformDependency {
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${LibraryVersion.FIREBASE_BOM}"
 }
