@@ -71,6 +71,7 @@ dependencies {
     kapt(LibraryDependency.ROOM_COMPILER)
 
     implementation(project(":data"))
+    implementation(project(":common"))
 
     addTestDependencies()
 }
