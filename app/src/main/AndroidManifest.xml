@@ -20,6 +20,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.nikolam.feature_alarm_timeout.AlarmTimeoutActivity"/>
+
+
         <receiver android:name="com.nikolam.data.Alarm" android:exported="true">
             <intent-filter>
                 <action android:name="com.nikolam.START_ALARM" >

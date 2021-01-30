@@ -58,5 +58,7 @@ dependencies {
     implementation(LibraryDependency.ROOM_KTX)
     kapt(LibraryDependency.ROOM_COMPILER)
 
+    implementation(project(":feature_alarm_timeout"))
+
     addTestDependencies()
 }
