@@ -1,5 +1,6 @@
 package com.nikolam.feature_add_alarm.presentation
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,26 +8,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nikolam.feature_add_alarm.R
+import com.nikolam.feature_add_alarm.databinding.AddAlarmFragmentBinding
+import com.nikolam.feature_add_alarm.di.addAlarmModule
+import org.koin.android.ext.android.inject
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 
 class AddAlarmFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AddAlarmFragment()
-    }
+    private val viewModel: AddAlarmViewModel by inject()
 
-    private lateinit var viewModel: AddAlarmViewModel
+    private var _binding: AddAlarmFragmentBinding? = null
+
+    private val binding get() = _binding!!
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.add_alarm_fragment, container, false)
+    ): View {
+        _binding = AddAlarmFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+
+        binding.scheduleButton.setOnClickListener {
+            viewModel.setAlarm(requireContext())
+        }
+
+        return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AddAlarmViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        loadKoinModules(addAlarmModule)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        unloadKoinModules(addAlarmModule)
+    }
 }
