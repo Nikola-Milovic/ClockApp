@@ -36,6 +36,7 @@ class Alarm : BroadcastReceiver() {
                         // interacts with the notification. Also, if your app targets Android 10
                         // or higher, you need to request the USE_FULL_SCREEN_INTENT permission in
                         // order for the platform to invoke this notification.
+                        .setAutoCancel(true)
                         .setFullScreenIntent(fullScreenPendingIntent, true)
 
         val notification = notificationBuilder.build()
@@ -45,7 +46,11 @@ class Alarm : BroadcastReceiver() {
             notify(123, notification)
         }
 
-        Toast.makeText(context, "Alarm", Toast.LENGTH_SHORT).show()
+   //     Toast.makeText(context, "Alarm", Toast.LENGTH_SHORT).show()
+
+        Intent(context, TimeoutService::class.java).also { intent ->
+            context.startService(intent)
+        }
        // wakeLock.release()
     }
 }

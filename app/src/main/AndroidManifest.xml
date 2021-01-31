@@ -23,6 +23,8 @@
 
         <activity android:name="com.nikolam.feature_alarm_timeout.AlarmTimeoutActivity"/>
 
+        <service android:name="com.nikolam.data.TimeoutService"/>
+
 
         <receiver android:name="com.nikolam.data.Alarm" android:exported="true">
             <intent-filter>
@@ -31,6 +33,7 @@
             </intent-filter>
         </receiver>
     </application>
+
 
 
 
