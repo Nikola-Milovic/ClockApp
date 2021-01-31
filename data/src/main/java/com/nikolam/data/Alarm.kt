@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.nikolam.feature_alarm_timeout.AlarmTimeoutActivity
+import timber.log.Timber
 
 
 class Alarm : BroadcastReceiver() {
@@ -18,6 +19,11 @@ class Alarm : BroadcastReceiver() {
     //    val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
     //    val wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "")
       //  wakeLock.acquire(10*60*1000L /*10 minutes*/)
+
+        Timber.d("triggers at %s", intent?.getLongExtra("triggerAtMillis", 0).toString())
+
+        val triggerAtMillis =  intent!!.getLongExtra("triggerAtMillis", 0)
+        val reqCode =  intent!!.getIntExtra("reqCode", 0)
 
         val fullScreenIntent = Intent(context, AlarmTimeoutActivity::class.java)
         val fullScreenPendingIntent = PendingIntent.getActivity(context, 0,
@@ -43,12 +49,13 @@ class Alarm : BroadcastReceiver() {
 
         with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
-            notify(123, notification)
+            notify(reqCode, notification)
         }
 
    //     Toast.makeText(context, "Alarm", Toast.LENGTH_SHORT).show()
 
         Intent(context, TimeoutService::class.java).also { intent ->
+            intent.putExtra("triggerAtMillis", triggerAtMillis)
             context.startService(intent)
         }
        // wakeLock.release()

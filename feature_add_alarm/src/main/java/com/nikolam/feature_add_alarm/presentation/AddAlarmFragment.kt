@@ -46,10 +46,10 @@ class AddAlarmFragment : Fragment() {
 
             val time = calendar.timeInMillis
 
-            val date =  DateUtils.getRelativeDateTimeString(context, time,
-                    DateUtils.MINUTE_IN_MILLIS, DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_NO_YEAR)
-            Toast.makeText(context, date, Toast.LENGTH_SHORT).show()
-            viewModel.setAlarm(requireContext())
+//            val date =  DateUtils.getRelativeDateTimeString(context, time,
+//                    DateUtils.MINUTE_IN_MILLIS, DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_NO_YEAR)
+//            Toast.makeText(context, date, Toast.LENGTH_SHORT).show()
+            viewModel.setAlarm(requireContext(), time)
         }
 
 

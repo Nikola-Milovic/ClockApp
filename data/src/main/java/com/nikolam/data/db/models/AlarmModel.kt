@@ -10,4 +10,5 @@ import androidx.room.PrimaryKey
 data class AlarmModel(
         @PrimaryKey val id: Long,
         @ColumnInfo(name = "name") val name: String?,
+        @ColumnInfo(name = "reqCode") val requestCode: Int?
 )

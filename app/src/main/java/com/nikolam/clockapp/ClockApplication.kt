@@ -2,6 +2,7 @@ package com.nikolam.clockapp
 
 import android.app.Application
 import com.nikolam.clockapp.di.navigationModule
+import com.nikolam.data.di.databaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.loadKoinModules
@@ -18,7 +19,7 @@ class ClockApplication: Application() {
             androidContext(this@ClockApplication)
         }
 
-        loadKoinModules(listOf(navigationModule))
+        loadKoinModules(listOf(navigationModule, databaseModule))
 
         // This will initialise Timber
         if (BuildConfig.DEBUG) {
