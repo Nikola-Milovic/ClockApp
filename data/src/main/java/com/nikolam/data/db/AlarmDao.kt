@@ -14,4 +14,7 @@ interface AlarmDao {
 
     @Query("DELETE FROM alarms WHERE id = :alarmID")
     fun deleteAlarm(alarmID: Long)
+
+    @Query("SELECT * FROM alarms")
+    fun getAllAlarms() : List<AlarmModel>
 }
