@@ -1,5 +1,6 @@
 package com.nikolam.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,5 +17,9 @@ interface AlarmDao {
     fun deleteAlarm(alarmID: Long)
 
     @Query("SELECT * FROM alarms")
-    fun getAllAlarms() : List<AlarmModel>
+    fun getAllAlarms() : LiveData<List<AlarmModel>>
+
+    @Query("SELECT * FROM alarms WHERE id = :id")
+    fun getAlarmById(id : Long) : AlarmModel
 }
+

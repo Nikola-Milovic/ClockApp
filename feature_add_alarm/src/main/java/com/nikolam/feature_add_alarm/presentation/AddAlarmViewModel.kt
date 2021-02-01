@@ -23,7 +23,7 @@ class AddAlarmViewModel(
         val intent = Intent(context, Alarm::class.java);
 
 
-        val triggerAtTest = System.currentTimeMillis() + 10000L
+        val triggerAtTest = triggerAtMillis // System.currentTimeMillis() + 10000L
 
 
 
@@ -43,23 +43,5 @@ class AddAlarmViewModel(
                 triggerAtTest,
                 pendingIntent
         ) // Millisec * Second * Minute
-    }
-
-    fun cancelAlarm(context: Context, reqCode: Int, triggerAtMillis: Long) {
-        val intent = Intent(context, Alarm::class.java)
-        val sender = PendingIntent.getBroadcast(context, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-      //  intent.putExtra("triggerAtMillis", triggerAtMillis)
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(sender)
-
-        try {
-            alarmManager.cancel(sender)
-            Timber.d("Cancelling all pending intents")
-            viewModelScope.launch {
-                db.alarmDao().deleteAlarm(triggerAtMillis)
-            }
-        } catch (e: Exception) {
-            Timber.e("AlarmManager update was not canceled. $e")
-        }
     }
 }

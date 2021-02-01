@@ -1,7 +1,6 @@
 package com.nikolam.feature_alarms.presentation
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,15 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nikolam.feature_alarms.R
 import com.nikolam.feature_alarms.databinding.AlarmsFragmentBinding
 import com.nikolam.feature_alarms.di.alarmsModule
 import org.koin.android.ext.android.inject
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
-import timber.log.Timber
 
-class AlarmsFragment : Fragment() {
+class AlarmsFragment : Fragment(), AlarmItemListener {
 
     private val viewModel: AlarmsViewModel by inject()
 
@@ -39,7 +36,7 @@ class AlarmsFragment : Fragment() {
             viewModel.navigateToNewAlarm()
         }
 
-        val adapter = AlarmsAdapter()
+        val adapter = AlarmsAdapter(this)
         binding.alarmsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.alarmsRecyclerView.addItemDecoration(
                 DividerItemDecoration(
@@ -49,11 +46,9 @@ class AlarmsFragment : Fragment() {
         )
         binding.alarmsRecyclerView.adapter = adapter
 
-        viewModel.alarmLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.getAlarms().observe(viewLifecycleOwner, Observer {
             adapter.newData(it)
         })
-
-        viewModel.getAlarms()
 
         return view
     }
@@ -67,5 +62,9 @@ class AlarmsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         unloadKoinModules(alarmsModule)
+    }
+
+    override fun deleteAlarm(id: Long) {
+        viewModel.deleteAlarm(id, requireContext())
     }
 }

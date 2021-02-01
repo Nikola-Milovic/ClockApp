@@ -8,13 +8,13 @@ import com.nikolam.feature_alarms.databinding.AlarmItemBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AlarmsAdapter () :
-    RecyclerView.Adapter<AlarmsAdapter.AlarmViewHolder>() {
+class AlarmsAdapter(private val listener: AlarmItemListener) :
+        RecyclerView.Adapter<AlarmsAdapter.AlarmViewHolder>() {
 
     override fun onBindViewHolder(holder: AlarmsAdapter.AlarmViewHolder, position: Int) {
         val data = data[position]
         try {
-            holder.bind(data)
+            holder.bind(data, listener)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -22,7 +22,7 @@ class AlarmsAdapter () :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmsAdapter.AlarmViewHolder {
         val itemBinding =
-            AlarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                AlarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AlarmViewHolder(itemBinding)
     }
 
@@ -39,12 +39,15 @@ class AlarmsAdapter () :
     }
 
     inner class AlarmViewHolder(
-        private val itemBinding: AlarmItemBinding
+            private val itemBinding: AlarmItemBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(data: AlarmModel) {
+        fun bind(data: AlarmModel, listener: AlarmItemListener) {
             itemBinding.apply {
                 timeTextView.text = Date(data.id).toString()
+                deleteButton.setOnClickListener {
+                    listener.deleteAlarm(data.id)
+                }
             }
         }
     }
